@@ -1,0 +1,1009 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-06-21T08:45:40Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>App PowerDNS authorative</template>
+            <name>App PowerDNS authorative</name>
+            <description>Self-contained Zabbix template to get information about PowerDNS authorative.&#13;
+&#13;
+Source: https://github.com/exgame/zabbix-powerdns-template</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PowerDNS Authorative</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>API Statistics</name>
+                    <type>HTTP_AGENT</type>
+                    <key>pdns.authorative.api.statistics</key>
+                    <history>0</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <url>http://{$PDNS.AUTHORATIVE.WEBSERVER.IP}:{$PDNS.AUTHORATIVE.WEBSERVER.PORT}/api/v1/servers/localhost/statistics</url>
+                    <headers>
+                        <header>
+                            <name>X-API-Key</name>
+                            <value>{$PDNS.AUTHORATIVE.APIKEY}</value>
+                        </header>
+                    </headers>
+                </item>
+                <item>
+                    <name>corrupt-packets</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[corrupt-packets]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of corrupt packets received</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;corrupt-packets&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>deferred-cache-inserts</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[deferred-cache-inserts]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of cache inserts that were deferred because of maintenance.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;deferred-cache-inserts&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>deferred-cache-lookup</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[deferred-cache-lookup]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of cache lookups that were deferred because of maintenance.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;deferred-cache-lookup&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>dnsupdate-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[dnsupdate-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of DNS update packets successfully answered.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;dnsupdate-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>dnsupdate-changes</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[dnsupdate-changes]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Total number of changes to records from DNS update.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;dnsupdate-changes&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>dnsupdate-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[dnsupdate-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of DNS update packets received.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;dnsupdate-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>dnsupdate-refused</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[dnsupdate-refused]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of DNS update packets that were refused.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;dnsupdate-refused&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>key-cache-size</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[key-cache-size]</key>
+                    <delay>0</delay>
+                    <units>entries</units>
+                    <description>Number of entries in the key cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;key-cache-size&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>latency</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[latency]</key>
+                    <delay>0</delay>
+                    <units>μs</units>
+                    <description>Average number of microseconds a packet spends within PowerDNS.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;latency&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>meta-cache-size</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[meta-cache-size]</key>
+                    <delay>0</delay>
+                    <units>entries</units>
+                    <description>Number of entries in the metadata cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;meta-cache-size&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-hit</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[packetcache-hit]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of packets which were answered out of the cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-hit&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-miss</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[packetcache-miss]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of times a packet could not be answered out of the cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-miss&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-size</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[packetcache-size]</key>
+                    <delay>0</delay>
+                    <description>Amount of packets in the packetcache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-size&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>qsize-q</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[qsize-q]</key>
+                    <delay>0</delay>
+                    <description>Number of packets waiting for database attention.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;qsize-q&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>query-cache-hit</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[query-cache-hit]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of hits on the query cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;query-cache-hit&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>query-cache-miss</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[query-cache-miss]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of misses on the query cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;query-cache-miss&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>rd-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[rd-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of packets sent by clients requesting recursion (regardless of if we'll be providing them with recursion).</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;rd-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>recursing-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[recursing-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of packets we supplied an answer to after recursive processing.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;recursing-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>recursing-questions</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[recursing-questions]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of packets we performed recursive processing for.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;recursing-questions&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>recursion-unanswered</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[recursion-unanswered]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of packets we sent to our recursor, but did not get a timely answer for.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;recursion-unanswered&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>security-status</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[security-status]</key>
+                    <delay>0</delay>
+                    <description>Security status based on security polling.&#13;
+https://doc.powerdns.com/md/common/security/#security-polling&#13;
+&#13;
+0: NXDOMAIN or resolution failure&#13;
+1: OK&#13;
+2: Upgrade recommended for security reasons&#13;
+3: Upgrade mandatory for security reasons</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>PowerDNS Security Status</name>
+                    </valuemap>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;security-status&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>servfail-packets</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[servfail-packets]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Amount of packets that could not be answered due to database problems.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;servfail-packets&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>signature-cache-size</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[signature-cache-size]</key>
+                    <delay>0</delay>
+                    <description>Number of entries in the signature cache.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;signature-cache-size&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>signatures</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[signatures]</key>
+                    <delay>0</delay>
+                    <description>Number of DNSSEC signatures created.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;signatures&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>sys-msec</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[sys-msec]</key>
+                    <delay>0</delay>
+                    <description>Number of CPU milliseconds spent in 'system' mode.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;sys-msec&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>tcp-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[tcp-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of answers sent out over TCP.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>tcp-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[tcp-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of questions received over TCP.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>timedout-packets</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[timedout-packets]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Amount of packets that were dropped because they had to wait too long internally.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;timedout-packets&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>timedout-questions</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[timedout-questions]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Amount of questions that were dropped because they had to wait too long internally.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;timedout-questions&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp-answers-bytes</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp-answers-bytes]</key>
+                    <delay>0</delay>
+                    <units>B</units>
+                    <description>Total number of answer bytes sent over UDP.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp-answers-bytes&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of answers sent out over UDP.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp-do-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp-do-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of queries received with the DO (DNSSEC OK) bit set.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp-do-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of questions received over UDP.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp4-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp4-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of answers sent out over UDPv4.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp4-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp4-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp4-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of questions received over UDPv4.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp4-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp6-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp6-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of answers sent out over UDPv6.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp6-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>udp6-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[udp6-queries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>Number of questions received over UDPv6.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;udp6-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>uptime</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[uptime]</key>
+                    <delay>0</delay>
+                    <units>s</units>
+                    <description>Uptime in seconds of the daemon.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;uptime&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>user-msec</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.authorative.statistics[user-msec]</key>
+                    <delay>0</delay>
+                    <description>Number of CPU milliseconds spent in 'user' mode.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS Authorative</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;user-msec&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.authorative.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$PDNS.AUTHORATIVE.APIKEY}</macro>
+                    <value>changeme</value>
+                </macro>
+                <macro>
+                    <macro>{$PDNS.AUTHORATIVE.WEBSERVER.IP}</macro>
+                    <value>127.0.0.1</value>
+                </macro>
+                <macro>
+                    <macro>{$PDNS.AUTHORATIVE.WEBSERVER.PORT}</macro>
+                    <value>8083</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>PDNSA</name>
+            <graph_items>
+                <graph_item>
+                    <color>A54F10</color>
+                    <item>
+                        <host>App PowerDNS authorative</host>
+                        <key>pdns.authorative.statistics[udp-answers]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>FC6EA3</color>
+                    <item>
+                        <host>App PowerDNS authorative</host>
+                        <key>pdns.authorative.statistics[udp-queries]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>PowerDNS Security Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Resolution failure</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Upgrade recommended</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Upgrade mandatory</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

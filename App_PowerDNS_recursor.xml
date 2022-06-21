@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.0</version>
+    <date>2022-06-21T08:46:49Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>App PowerDNS recursor</template>
+            <name>App PowerDNS recursor</name>
+            <description>Self-contained Zabbix template to get information about PowerDNS recursor.&#13;
+&#13;
+Source: https://github.com/exgame/zabbix-powerdns-template</description>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>PowerDNS recursor</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>API Statistics</name>
+                    <type>HTTP_AGENT</type>
+                    <key>pdns.recursor.api.statistics</key>
+                    <history>0</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <url>http://{$PDNS.RECURSOR.WEBSERVER.IP}:{$PDNS.RECURSOR.WEBSERVER.PORT}/api/v1/servers/localhost/statistics</url>
+                    <headers>
+                        <header>
+                            <name>X-API-Key</name>
+                            <value>{$PDNS.RECURSOR.APIKEY}</value>
+                        </header>
+                    </headers>
+                </item>
+                <item>
+                    <name>all-outqueries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[all-outqueries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of outgoing UDP queries since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;all-outqueries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>answers-slow</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[answers-slow]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of queries answered after 1 second</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;answers-slow&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>answers0-1</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[answers0-1]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of queries answered within 1 millisecond</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;answers0-1&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>answers1-10</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[answers1-10]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of queries answered within 10 milliseconds</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;answers1-10&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>answers10-100</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[answers10-100]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of queries answered within 100 milliseconds</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;answers10-100&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>answers100-1000</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[answers100-100]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of queries answered within 1 second</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;answers100-1000&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>cache-bytes</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[cache-bytes]</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <description>size of the cache in bytes (disabled by default, see stats-rec-control-disabled-list) This metric is a rough estimate and takes a long time to compute, and is therefore not enabled in default outputs.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;cache-bytes&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>cache-hits</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[cache-hits]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of cache hits since starting, this does not include hits that got answered from the packet-cache</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;cache-hits&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>cache-misses</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[cache-misses]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of cache misses since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;cache-misses&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>client-parse-errors</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[client-parse-errors]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts number of client packets that could not be parsed</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;client-parse-errors&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>concurrent-queries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[concurrent-queries]</key>
+                    <delay>0</delay>
+                    <units>q</units>
+                    <description>shows the number of MThreads currently running</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;concurrent-queries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>max-mthread-stack</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[max-mthread-stack]</key>
+                    <delay>0</delay>
+                    <description>maximum amount of thread stack ever used</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;max-mthread-stack&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>negcache-entries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[negcache-entries]</key>
+                    <delay>0</delay>
+                    <description>shows the number of entries in the negative answer cache</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;negcache-entries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>nsspeeds-entries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[nsspeeds-entries]</key>
+                    <delay>0</delay>
+                    <description>shows the number of entries in the NS speeds map</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;nsspeeds-entries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>nxdomain-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[nxdomain-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of times it answered NXDOMAIN since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;nxdomain-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>outgoing-timeouts</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[outgoing-timeouts]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of timeouts on outgoing UDP queries since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;outgoing-timeouts&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>over-capacity-drops</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[over-capacity-drops]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>questions dropped because over maximum concurrent query limit</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;over-capacity-drops&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-bytes</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[packetcache-bytes]</key>
+                    <delay>0</delay>
+                    <status>DISABLED</status>
+                    <units>B</units>
+                    <description>size of the packet cache in bytes (since 3.3.1) (disabled by default, see stats-rec-control-disabled-list) This metric is a rough estimate and takes a long time to compute, and is therefore not enabled in default outputs.</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-bytes&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-entries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[packetcache-entries]</key>
+                    <delay>0</delay>
+                    <description>size of packet cache</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-entries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>packetcache-hits</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[packetcache-hits]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of packetcache-hits hits since starting, this does not include hits that got answered from the packet-cache</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;packetcache-hits&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>policy-drops</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[policy-drops]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>packets dropped because of (Lua) policy decision</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;policy-drops&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>qa-latency</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[qa-latency]</key>
+                    <delay>0</delay>
+                    <units>μs</units>
+                    <description>shows the current latency average, in microseconds, exponentially weighted over past 'latency-statistic-size' packets</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;qa-latency&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>questions</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[questions]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts all end-user initiated queries with the RD bit set</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;questions&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>resource-limits</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[resource-limits]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts number of queries that could not be performed because of resource limits</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;resource-limits&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>security-status</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[security-status]</key>
+                    <delay>0</delay>
+                    <description>Security status based on security polling.&#13;
+https://doc.powerdns.com/md/common/security/#security-polling&#13;
+&#13;
+0: NXDOMAIN or resolution failure&#13;
+1: OK&#13;
+2: Upgrade recommended for security reasons&#13;
+3: Upgrade mandatory for security reasons</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>PowerDNS Security Status</name>
+                    </valuemap>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;security-status&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>server-parse-errors</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[server-parse-errors]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts number of server replied packets that could not be parsed</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;server-parse-errors&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>servfail-answers</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[servfail-answers]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of times it answered SERVFAIL since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;servfail-answers&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>spoof-prevents</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[spoof-prevents]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>number of times PowerDNS considered itself spoofed, and dropped the data</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;spoof-prevents&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>sys-msec</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[sys-msec]</key>
+                    <delay>0</delay>
+                    <description>Number of CPU milliseconds spent in ‘system’ mode</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;sys-msec&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>tcp-client-overflow</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[tcp-client-overflow]</key>
+                    <delay>0</delay>
+                    <units>ps</units>
+                    <description>number of times an IP address was denied TCP access because it already had too many connections</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-client-overflow&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>tcp-clients</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[tcp-clients]</key>
+                    <delay>0</delay>
+                    <units>clients</units>
+                    <description>counts the number of currently active TCP/IP clients</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-clients&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>tcp-outqueries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[tcp-outqueries]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of outgoing TCP queries since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-outqueries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>tcp-questions</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[tcp-questions]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts all incoming TCP queries</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;tcp-questions&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>throttle-entries</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[throttle-entries]</key>
+                    <delay>0</delay>
+                    <units>entries</units>
+                    <description>shows the number of entries in the throttle map</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;throttle-entries&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>throttled-out</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[throttled-out]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>counts the number of throttled outgoing UDP queries since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;throttled-out&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>too-old-drops</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[too-old-drops]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>questions dropped that were too old</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;too-old-drops&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>unauthorized-tcp</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[unauthorized-tcp]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>number of TCP questions denied because of allow-from restrictions</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;unauthorized-tcp&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>unauthorized-udp</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[unauthorized-udp]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>number of UDP questions denied because of allow-from restrictions</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;unauthorized-udp&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>unexpected-packets</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[unexpected-packets]</key>
+                    <delay>0</delay>
+                    <units>qps</units>
+                    <description>number of answers from remote servers that were unexpected (might point to spoofing)</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;unexpected-packets&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>unreachables</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[unreachables]</key>
+                    <delay>0</delay>
+                    <description>number of times nameservers were unreachable since starting</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;unreachables&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                    <request_method>POST</request_method>
+                </item>
+                <item>
+                    <name>uptime</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[uptime]</key>
+                    <delay>0</delay>
+                    <units>s</units>
+                    <description>Number of seconds process has been running (since 3.1.5)</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;uptime&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                </item>
+                <item>
+                    <name>user-msec</name>
+                    <type>DEPENDENT</type>
+                    <key>pdns.recursor.statistics[user-msec]</key>
+                    <delay>0</delay>
+                    <description>Number of CPU milliseconds spent in ‘user’ mode</description>
+                    <applications>
+                        <application>
+                            <name>PowerDNS recursor</name>
+                        </application>
+                    </applications>
+                    <preprocessing>
+                        <step>
+                            <type>JSONPATH</type>
+                            <params>$[?(@.name == &quot;user-msec&quot;)].value.first()</params>
+                        </step>
+                    </preprocessing>
+                    <master_item>
+                        <key>pdns.recursor.api.statistics</key>
+                    </master_item>
+                </item>
+            </items>
+            <macros>
+                <macro>
+                    <macro>{$PDNS.RECURSOR.APIKEY}</macro>
+                    <value>changeme</value>
+                </macro>
+                <macro>
+                    <macro>{$PDNS.RECURSOR.WEBSERVER.IP}</macro>
+                    <value>127.0.0.1</value>
+                </macro>
+                <macro>
+                    <macro>{$PDNS.RECURSOR.WEBSERVER.PORT}</macro>
+                    <value>8083</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>PowerDNS Security Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Resolution failure</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Upgrade recommended</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Upgrade mandatory</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
